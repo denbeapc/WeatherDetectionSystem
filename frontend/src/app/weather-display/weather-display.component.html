@@ -1,0 +1,37 @@
+<div id="Gauges">
+	<div *ngIf='Data' style="width: 60%; margin: auto;">
+		<dl class="dl-horizontal">
+			<dt>Temperature</dt>
+			<dd>
+				<div class="progress">
+					<div class="progress-bar progress-bar-temp" role="progressbar" aria-valuemin="0" 
+					[attr.aria-valuenow]="Data.temperature" [style.width]="(Data.temperature/100)*100 + '%'" 
+					aria-valuemax="100" id="temperature-gauge">
+						{{Data.temperature}}%
+					</div>
+				</div>
+			</dd>
+
+			<dt>Humidity</dt>
+			<dd>
+				<div class="progress">
+					<div class="progress-bar progress-bar-humidity" role="progressbar" aria-valuemin="0" 
+					[attr.aria-valuenow]="Data.humidity" [style.width]="(Data.humidity/100)*100 + '%'" 
+					aria-valuemax="100" id="humidity-gauge">
+						{{Data.humidity}}%
+					</div>
+				</div>
+			</dd>
+		</dl>
+
+		<div id="Water-Level-LED"></div>
+	</div>
+</div>
+
+<div id="Chart">
+	<chart [options]="options" (load)="saveChart($event.context)">
+		<series (hide)="onSeriesHide($event.context)">
+			<point (select)="onPointSelect($event.context)"></point>
+		</series>
+	</chart>
+</div>

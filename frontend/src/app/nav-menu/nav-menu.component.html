@@ -1,0 +1,32 @@
+<div id="menu">
+	<nav class="navbar navbar-default navbar-static-top"> 
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+				data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle Navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" [routerLink]="['home']">Weather Tracker</a>
+			</div>
+
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li [routerLinkActive]="['active']" id="homeTab">
+						<a [routerLink]="['home']">Home</a>
+					</li>
+					<li [routerLinkActive]="['active']" class="dropdown" id="reportsTab">
+						<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="dd-menu">Reports <span class="caret"></span></a>
+						<ul class="dropdown-menu" aria-labelledby="dd-menu">
+							<li><a [routerLink]="['report/Temperature']">Temperature</a></li>
+							<li><a [routerLink]="['report/Humidity']">Humidity</a></li>
+							<li><a [routerLink]="['report/WaterLevel']">Water Level</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</div>

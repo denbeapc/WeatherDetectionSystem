@@ -1,0 +1,25 @@
+#Gauges {
+	padding: 15px;
+	margin-bottom: 15px;
+
+	border: 1px black solid;
+	border-radius: 6px;
+	background-color: white;
+}
+
+#Chart {
+	padding: 15px;
+
+	border: 1px black solid;
+	border-radius: 6px;
+	background-color: white;
+}
+
+#Water-Level-LED {
+	margin: 20px auto;
+	width: 26px;
+	height: 26px;
+	background-color: rgb(0, 255, 0);
+	border-radius: 50%;
+	box-shadow: #000000 0 -1px 7px 1px, inset #006600 0 -1px 9px, #00FF00 0 2px 12px;
+}
