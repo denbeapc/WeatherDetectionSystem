@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { DatePipe } from '@angular/common';
 
 import { ChartModule } from 'angular2-highcharts';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -16,34 +16,26 @@ import { WeatherService } from 'app/weather.service';
 	providers: [WeatherService]
 })
 export class WeatherDisplayComponent implements OnInit {
-	// RGB transition for water level detector goes from red(255,0,0) to orange(255,255,0) to green(0,255,0)
-	// There are 512 different color options along that scale
-	// at WaterLevel = 1024 it will be green
-	// at WaterLevel = 512 it will be orange
-	// at WaterLevel = 0 it will be red
+	constructor(private weatherSvc: WeatherService) {
+		this.innerWidth = (window.screen.width);
+	}
+
+	options: any;
+	chart: any;
 
 	Data: any;
 	tick = 0;
 
 	innerWidth: any;
 
-	constructor(private weatherSvc: WeatherService) {
-		this.innerWidth = (window.screen.width);
-		// if(this.innerWidth <= 425) {
-		// 	this.onMobile = true;
-		// }
-	}
-
-	options: any;
-	chart: any;
-
 	ngOnInit() {
 		this.options = {
 			title : { text : '' },
 			xAxis: {
 				type: 'datetime',
-				tickPixelInterval: 150,
-				className: 'highcharts-x-color'
+				dateTimeLabelFormats: {
+					second: '%I:%M:%S %P'
+				}
 			},
 			chart: {
 				width: this.innerWidth - 50,
@@ -51,29 +43,22 @@ export class WeatherDisplayComponent implements OnInit {
 			},
 			series: [{
 				name: 'Temperature',
-				data: (function () {
-					var data = [],
-					time = (new Date()).getTime();
-
-					return data;
-				}()),
+				data: [],
 				allowPointSelect: true
 			},{
 				name: 'Humidity',
-				data: (function () {
-					var data = [],
-					time = (new Date()).getTime();
-
-					return data;
-				}()),
+				data: [],
 				allowPointSelect: true
 			}]
 		};		
 
 		setInterval(() => { 
 			this.Data = this.weatherSvc.get(this.tick);
-			this.addTempPoint(this.Data.temperature);
-			this.addHumidityPoint(this.Data.humidity);
+
+			var timestamp = (new Date(Date.now()).getTime() - (14400 * 1000));
+			// timestamp.setTime(timestamp.getTime() * timestamp.getTimezoneOffset());
+			this.addTempPoint(timestamp, this.Data.temperature);
+			this.addHumidityPoint(timestamp, this.Data.humidity);
 			this.setWaterLevelLEDColor(this.Data.waterLevel);
 				// .then(resp => this.Data = resp);
 			if(this.tick == 9) {
@@ -87,11 +72,11 @@ export class WeatherDisplayComponent implements OnInit {
 	saveChart(chart) {
 		this.chart = chart;
 	}
-	addTempPoint(val) {
-		this.chart.series[0].addPoint(val);
+	addTempPoint(timestamp, val) {
+		this.chart.series[0].addPoint([timestamp, val]);
 	}
-	addHumidityPoint(val) {
-		this.chart.series[1].addPoint(val);
+	addHumidityPoint(timestamp, val) {
+		this.chart.series[1].addPoint([timestamp, val]);
 	}
 	onPointSelect(point) {
 		// display point info?
@@ -99,7 +84,14 @@ export class WeatherDisplayComponent implements OnInit {
 	onSeriesHide(series) {
 		// do something
 	}
+	// =================== END OF CHART METHODS =================== //
 
+	// =================== LED WATER LEVEL METHOD =================== //
+	// RGB transition for water level detector goes from red(255,0,0) to orange(255,255,0) to green(0,255,0)
+	// There are 512 different color options along that scale
+	// at WaterLevel = 1024 it will be green
+	// at WaterLevel = 512 it will be orange
+	// at WaterLevel = 0 it will be red
 	setWaterLevelLEDColor(val) {
 		if(document.getElementById("Water-Level-LED") != null) {
 			if(val > 682.7) {

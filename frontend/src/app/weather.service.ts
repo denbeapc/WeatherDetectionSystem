@@ -7,6 +7,8 @@ import 'rxjs/add/operator/toPromise';
 export class WeatherService {
 	url: string = "URL-STRING";
 
+	DeviceScreenWith: number = window.screen.width;
+
 	// Data: any;
 
 	Data: any = [
