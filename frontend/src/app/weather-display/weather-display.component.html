@@ -1,37 +1,43 @@
 <div id="Gauges">
 	<div *ngIf='Data' style="width: 60%; margin: auto;">
-		<dl class="dl-horizontal">
-			<dt>Temperature</dt>
-			<dd>
-				<div class="progress">
+		<div class="list-group">
+			<a class="list-group-item" style="background-color: gray; border: 0;">
+				<h4 class="list-group-item-heading" style="color: white;">Temperature</h4>
+				<div class="progress list-group-item-text" style="box-shadow: 10px 10px 5px #666666; border: 1px solid darkgray;">
 					<div class="progress-bar progress-bar-temp" role="progressbar" aria-valuemin="0" 
 					[attr.aria-valuenow]="Data.temperature" [style.width]="(Data.temperature/100)*100 + '%'" 
 					aria-valuemax="100" id="temperature-gauge">
 						{{Data.temperature}}%
 					</div>
 				</div>
-			</dd>
+			</a>
 
-			<dt>Humidity</dt>
-			<dd>
-				<div class="progress">
+			<a class="list-group-item" style="background-color: gray; border: 0;">
+				<h4 class="list-group-item-heading" style="color: white;">Humidity</h4>
+				<div class="progress list-group-item-text" style="box-shadow: 10px 10px 5px #666666; border: 1px solid darkgray;">
 					<div class="progress-bar progress-bar-humidity" role="progressbar" aria-valuemin="0" 
 					[attr.aria-valuenow]="Data.humidity" [style.width]="(Data.humidity/100)*100 + '%'" 
 					aria-valuemax="100" id="humidity-gauge">
 						{{Data.humidity}}%
 					</div>
 				</div>
-			</dd>
-		</dl>
+			</a>
+		</div>
 
 		<div id="Water-Level-LED"></div>
 	</div>
 </div>
 
-<div id="Chart">
-	<chart [options]="options" (load)="saveChart($event.context)">
+<div id="Separator">
+	<span>CHART</span><br>
+	<span class="glyphicon glyphicon-triangle-bottom"></span>
+</div>
+
+<div id="ChartDIV">
+	<chart id="Chart" width="100%" [options]="options" (load)="saveChart($event.context)">
 		<series (hide)="onSeriesHide($event.context)">
 			<point (select)="onPointSelect($event.context)"></point>
 		</series>
 	</chart>
 </div>
+

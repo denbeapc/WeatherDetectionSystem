@@ -32,24 +32,14 @@ export class WeatherService {
 		"temperature": 77.54, "humidity": 51.8, "waterLevel": 106 }
 	];
 
-	TemperatureData: Array<any> = [];
-	HumidityData: Array<any> = [];
-	WaterLevelData: Array<any> = [];
-
 	constructor(private http: Http) { }
 
 	get(tick) {
-		this.pushToArray(tick);
-		return this.Data[tick];	
+		return this.Data[tick];
+		// return this.Data
 			// .toPromise()
 			// .then(resp => resp.json() || {})
 			// .catch(this.handleError);
-	}
-
-	pushToArray(count) {
-		this.TemperatureData.push({ Timestamp: new Date(), Temp: this.Data[count].temperature });
-		this.HumidityData.push({ Timestamp: new Date(), Temp: this.Data[count].humidity });
-		this.WaterLevelData.push({ Timestamp: new Date(), Temp: this.Data[count].waterLevel });
 	}
 
 	// get(): Promise<any> {

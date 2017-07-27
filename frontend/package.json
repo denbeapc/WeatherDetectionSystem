@@ -10,6 +10,13 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "keywords": [
+    "angular",
+    "charts",
+    "highcharts",
+    "highstock",
+    "highmaps"
+  ],
   "private": true,
   "dependencies": {
     "@angular/animations": "^4.0.0",
@@ -25,6 +32,7 @@
     "core-js": "^2.4.1",
     "angular2-highcharts": "^0.5.5",
     "highcharts": "^5.0.0",
+    "@types/highcharts": "^5.0.0",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },

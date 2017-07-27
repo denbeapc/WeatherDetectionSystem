@@ -10,12 +10,12 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { WeatherService } from 'app/weather.service';
 
 @Component({
-	selector: 'app-weather-display',
-	templateUrl: './weather-display.component.html',
-	styleUrls: ['./weather-display.component.css'],
+	selector: 'app-weather-display-mobile',
+	templateUrl: './weather-display-mobile.component.html',
+	styleUrls: ['./weather-display-mobile.component.css'],
 	providers: [WeatherService]
 })
-export class WeatherDisplayComponent implements OnInit {
+export class WeatherDisplayMobileComponent implements OnInit {
 	// RGB transition for water level detector goes from red(255,0,0) to orange(255,255,0) to green(0,255,0)
 	// There are 512 different color options along that scale
 	// at WaterLevel = 1024 it will be green
@@ -30,7 +30,7 @@ export class WeatherDisplayComponent implements OnInit {
 	constructor(private weatherSvc: WeatherService) {
 		this.innerWidth = (window.screen.width);
 		// if(this.innerWidth <= 425) {
-		// 	this.onMobile = true;
+			// this.onMobile = true;
 		// }
 	}
 
@@ -42,12 +42,11 @@ export class WeatherDisplayComponent implements OnInit {
 			title : { text : '' },
 			xAxis: {
 				type: 'datetime',
-				tickPixelInterval: 150,
-				className: 'highcharts-x-color'
+				tickPixelInterval: 150
 			},
 			chart: {
-				width: this.innerWidth - 50,
-				backgroundColor: 'lightgray'
+				backgroundColor: 'lightgray',
+				animation: false
 			},
 			series: [{
 				name: 'Temperature',
@@ -57,7 +56,8 @@ export class WeatherDisplayComponent implements OnInit {
 
 					return data;
 				}()),
-				allowPointSelect: true
+				allowPointSelect: true,
+				animation: false
 			},{
 				name: 'Humidity',
 				data: (function () {
@@ -66,9 +66,10 @@ export class WeatherDisplayComponent implements OnInit {
 
 					return data;
 				}()),
-				allowPointSelect: true
+				allowPointSelect: true,
+				animation: false
 			}]
-		};		
+		};
 
 		setInterval(() => { 
 			this.Data = this.weatherSvc.get(this.tick);

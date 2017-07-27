@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { WeatherDisplayComponent } from './weather-display/weather-display.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { WeatherDisplayMobileComponent } from './weather-display-mobile/weather-display-mobile.component';
 
 declare var require: any;
 export function highchartsFactory() {
@@ -20,11 +21,12 @@ export function highchartsFactory() {
 	declarations: [
 		AppComponent,
 		WeatherDisplayComponent,
-		NavMenuComponent
+		NavMenuComponent,
+		WeatherDisplayMobileComponent
 	],
 	imports: [
 		BrowserModule, 
-		ChartModule,
+		ChartModule, // .forRoot(require('highcharts')),
 		AppRoutingModule,
 		HttpModule,
 		FormsModule
@@ -39,4 +41,4 @@ export function highchartsFactory() {
 })
 export class AppModule { }
 
-platformBrowserDynamic().bootstrapModule(AppModule);
+// platformBrowserDynamic().bootstrapModule(AppModule);
